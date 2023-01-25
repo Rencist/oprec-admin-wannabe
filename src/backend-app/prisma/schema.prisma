@@ -33,12 +33,13 @@ model User {
 }
 
 model list_lab {
-  id         Int          @id @default(autoincrement())
-  name       String       @unique
-  desciption String       @db.VarChar(512)
-  createdAt  DateTime?    @default(now())
-  updatedAt  DateTime     @default(now())
-  list_admin list_admin[]
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  desciption    String          @db.VarChar(512)
+  createdAt     DateTime?       @default(now())
+  updatedAt     DateTime        @default(now())
+  list_admin    list_admin[]
+  pendaftar_lab pendaftar_lab[]
 }
 
 model list_admin {
@@ -56,6 +57,20 @@ model Login_Attempt {
   user         User?     @relation(fields: [userId], references: [id])
   limitTime    DateTime?
   countAttempt Int
+}
+
+model pendaftar_lab {
+  id          String    @id @default(uuid())
+  name        String
+  list_lab_id Int
+  nrp         String
+  no_telp     String
+  alasan      String
+  motivasi    String
+  link_kreasi String
+  listLabId   list_lab? @relation(fields: [list_lab_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime  @default(now())
 }
 
 // Url Shortener
