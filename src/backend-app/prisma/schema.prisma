@@ -32,6 +32,14 @@ model User {
   updatedAt    DateTime       @default(now())
 }
 
+model list_lab {
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  desciption String    @db.VarChar(512)
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime  @default(now())
+}
+
 model Login_Attempt {
   id           Int       @id @default(autoincrement())
   userId       String    @unique

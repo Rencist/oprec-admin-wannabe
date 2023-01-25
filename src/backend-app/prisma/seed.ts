@@ -1,27 +1,25 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-import { hash } from 'bcrypt';
 import * as csv from 'csvtojson';
-
-const SALT_PASSWORD = 12;
 
 async function main() {
   await csv()
-    .fromFile(__dirname + '/data/data.csv')
-    // .then(async (data) => {
-    //   for (const data of data) {
-    //     data.id = parseInt(data.id);
-    //     try {
-    //       await prisma.data.upsert({
-    //         where: { id: data.id },
-    //         update: data,
-    //         create: data,
-    //       });
-    //     } catch (e) {
-    //       console.log(e);
-    //     }
-    //   }
-    // });
+    .fromFile(__dirname + '/data/list_lab.csv')
+    .then(async (datas) => {
+      for (const data of datas) {
+        data.id = parseInt(data.id);
+        try {
+          prisma.user
+          await prisma.list_lab.upsert({
+            where: { id: data.id },
+            update: data,
+            create: data,
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    });
 }
 
 main()
