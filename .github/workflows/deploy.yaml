@@ -1,0 +1,25 @@
+name: Deploy Oprec Backend Server DO
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH to server & execute commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 18235
+          script: |
+            cd /var/www/oprec-backend/src/backend-app
+            git pull origin develop
+            yarn install
+            yarn build
+            pm2 reload backend
+            pm2 restart backend

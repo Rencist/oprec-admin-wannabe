@@ -1,0 +1,14 @@
+name: Check production
+on: [push]
+jobs:
+  build:
+    name: Check Production Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: --cwd src/backend-app install
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: --cwd src/backend-app build

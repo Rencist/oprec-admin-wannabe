@@ -1,0 +1,30 @@
+{
+  "name": "oprec-backend",
+  "version": "1.0.0",
+  "description": "Backend",
+  "main": "index.js",
+  "repository": "https://github.com/oprec/oprec-backend.git",
+  "author": "oprec",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "format": "cd src/backend-app && yarn format",
+    "es-lint": "cd src/backend-app && yarn lint",
+    "inst": "cd src/backend-app && yarn install"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,html,css,json}": [
+      "yarn format"
+    ],
+    "src/backend-app/**/*.{js,jsx,ts,tsx,html,css,json}": [
+      "yarn es-lint"
+    ]
+  }
+}

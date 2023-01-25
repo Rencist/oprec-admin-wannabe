@@ -1,0 +1,19 @@
+{
+  "name": "oprec-backend",
+  "version": "1.0.0",
+  "description": "Backend repository for oprec",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oprec/oprec-backend.git"
+  },
+  "author": "oprec",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oprec/oprec-backend/issues"
+  },
+  "homepage": "https://github.com/oprec/oprec-backend#readme"
+}
