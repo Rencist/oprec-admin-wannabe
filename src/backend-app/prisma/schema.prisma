@@ -63,7 +63,7 @@ model pendaftar_lab {
   id          String    @id @default(uuid())
   name        String
   list_lab_id Int
-  nrp         String
+  nrp         String    @unique
   no_telp     String
   alasan      String
   motivasi    String

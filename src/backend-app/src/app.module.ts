@@ -11,6 +11,7 @@ import { EmailModule } from './resources/email/email.module';
 import { QrcodeModule } from './resources/qrcode/qrcode.module';
 import { ServeStaticModule } from '@nestjs/serve-static/dist/serve-static.module';
 import { resolve } from 'path';
+import { PendaftarModule } from './resources/pendaftar/pendaftar.module';
 
 const ENV = process.env.ENV;
 
@@ -40,6 +41,7 @@ const ENV = process.env.ENV;
     PaginationModule,
     EmailModule,
     QrcodeModule,
+    PendaftarModule
   ],
   controllers: [AppController],
   providers: [AppService],
