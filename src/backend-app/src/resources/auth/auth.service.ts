@@ -30,7 +30,7 @@ export class AuthService {
   async login(LoginDto: LoginDto) {
     const user = await this.prisma.user.findUnique({
       where: {
-        no_telp: LoginDto.no_telp,
+        email: LoginDto.email,
       },
       include: {
         loginAttempt: true,
@@ -71,32 +71,18 @@ export class AuthService {
   async register(user: UserDto) {
     const checkUser = await this.prisma.user.findUnique({
       where: {
-        no_telp: user.no_telp,
+        email: user.email,
       },
     });
 
     if (checkUser) {
       throw new BadRequestException('No Telp sudah terdaftar');
     }
-    const uploadFoto: uploadFiles = {
-      fileIs: user.foto,
-      no_telp: user.no_telp,
-      path: 'src/uploads/user',
-      res: 'foto',
-    };
-    await this.uploadFile(uploadFoto);
 
     const newdata: Prisma.UserUncheckedCreateInput = {
       fullname: user.fullname,
-      no_telp: user.no_telp,
-      alamat: user.alamat,
-      password: user.password,
-      foto:
-        '/user/foto/' +
-        uploadFoto.no_telp +
-        '-' +
-        uploadFoto.res +
-        '.jpeg',
+      email: user.email,
+      password: user.password
     };
     const success = new Promise((resolve, reject) => {
       hash(user.password, SALT_PASSWORD, async (err, hash) => {
@@ -121,30 +107,11 @@ export class AuthService {
     if (!cekUser) {
       throw new BadRequestException('User tidak ditemukan');
     }
-    const user = await this.prisma.user.findFirst({
-      where: {
-        id: user_id,
-      }
-    });
-    const uploadFoto: uploadFiles = {
-      fileIs: data.foto,
-      no_telp: user.no_telp,
-      path: 'src/uploads/user',
-      res: 'foto',
-    };
-    await this.uploadFile(uploadFoto);
 
     const newdata: Prisma.UserUncheckedUpdateInput = {
       fullname: data.fullname,
-      no_telp: data.no_telp,
-      alamat: data.alamat,
-      password: data.password,
-      foto:
-        '/user/foto/' +
-        uploadFoto.no_telp +
-        '-' +
-        uploadFoto.res +
-        '.jpeg',
+      email: data.email,
+      password: data.password
     };
 
     const result = await this.prisma.user.update({
@@ -241,7 +208,7 @@ export class AuthService {
     const getBuffer = data.fileIs.buffer;
 
     const newfilename =
-      data.no_telp + '-' + data.res + '.jpeg';
+      data.email + '-' + data.res + '.jpeg';
     const checkDir = fs.existsSync(data.path + '/' + data.res);
     if (!checkDir) {
       fs.mkdirSync(data.path + '/' + data.res, { recursive: true });

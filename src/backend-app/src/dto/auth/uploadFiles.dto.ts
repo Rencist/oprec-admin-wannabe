@@ -6,7 +6,7 @@ import { FileField, File } from 'nestjs-file-upload';
 export class uploadFiles {
   @ApiProperty()
   @IsNotEmpty()
-  no_telp: string;
+  email: string;
 
   @ApiProperty()
   @IsNotEmpty()

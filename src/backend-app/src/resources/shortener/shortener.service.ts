@@ -146,7 +146,7 @@ export class ShortenerService {
 
     if (
       url.createdBy.id == shorten.userId ||
-      user.no_telp == 'admin@inilho.its.ac.id'
+      user.email == 'admin@inilho.its.ac.id'
     ) {
       if (!shorten.alias)
         while (!shorten.alias || shorten.alias == '') {
@@ -196,7 +196,7 @@ export class ShortenerService {
       throw new BadRequestException('Url tidak ditemukan');
     }
 
-    if (url.userId == uid || user.no_telp == 'admin@inilho.its.ac.id') {
+    if (url.userId == uid || user.email == 'admin@inilho.its.ac.id') {
       const deletedUrl = await this.prisma.shorten.delete({
         where: {
           id,

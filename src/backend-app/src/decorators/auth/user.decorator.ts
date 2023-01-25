@@ -6,24 +6,17 @@ export const UserBody =
     ApiBody({
       schema: {
         type: 'object',
-        required: ['fullname', 'no_telp', 'alamat', 'password', 'foto'],
+        required: ['fullname', 'email', 'password'],
         properties: {
           fullname: {
             type: 'string',
           },
-          no_telp: {
-            type: 'string',
-          },
-          alamat: {
+          email: {
             type: 'string',
           },
           password: {
             type: 'string',
-          },
-          foto: {
-            type: 'string',
-            format: 'binary',
-          },
+          }
         },
       },
     })(target, propertyKey, descriptor);

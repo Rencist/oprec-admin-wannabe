@@ -6,7 +6,7 @@ export const sortHelper = {
   },
   user: {
     fullname: ['fullname'],
-    no_telp: ['no_telp'],
+    email: ['email'],
     alamat: ['alamat'],
     foto: ['foto'],
   },

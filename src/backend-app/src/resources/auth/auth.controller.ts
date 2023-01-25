@@ -23,6 +23,7 @@ import { Roles } from 'src/decorators/role.decorator';
 import { Role } from '@prisma/client';
 import { UserUpdateDto } from 'src/dto/auth/user_update.dto';
 import { PaginationDto } from 'src/dto/pagination/pagination.dto';
+import { FileSystemStoredFile, FormDataRequest } from 'nestjs-form-data';
 
 @ApiTags('authentication')
 @Controller('auth')
@@ -32,10 +33,11 @@ export class AuthController {
     private readonly jwtService: JwtService,
   ) {}
     
-  @Post('register')
+  @Post('register') 
   @FileInjector(UserDto)
   @UserBody()
   @ApiConsumes('multipart/form-data')
+  @FormDataRequest({storage: FileSystemStoredFile})
   async register(@Body() user: UserDto) {
     try {
       const res = await this.authService.register(user);
@@ -54,6 +56,7 @@ export class AuthController {
   @FileInjector(UserDto)
   @UserBody()
   @ApiConsumes('multipart/form-data')
+  @FormDataRequest({storage: FileSystemStoredFile})
   async login(@Body() LoginDto: LoginDto) {
     try {
       const user = await this.authService.login(LoginDto);
@@ -75,6 +78,7 @@ export class AuthController {
   @Roles(Role.USER)
   @UserBody()
   @ApiConsumes('multipart/form-data')
+  @FormDataRequest({storage: FileSystemStoredFile})
   async updateOrder(
     @Param('user_id') user_id: string,
     @Body() data: UserDto,

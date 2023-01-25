@@ -21,10 +21,8 @@ enum Role {
 model User {
   id           String         @id @default(uuid())
   fullname     String
-  no_telp      String         @unique
-  alamat       String
+  email        String         @unique
   password     String
-  foto         String         @db.VarChar(255)
   role         Role           @default(USER)
   shortens     Shorten[]
   loginAttempt Login_Attempt?
@@ -53,7 +51,7 @@ model list_admin {
 
 model Login_Attempt {
   id           Int       @id @default(autoincrement())
-  userId       String    @unique
+  userId       String?   @unique
   user         User?     @relation(fields: [userId], references: [id])
   limitTime    DateTime?
   countAttempt Int
