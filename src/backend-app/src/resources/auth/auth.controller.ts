@@ -100,7 +100,7 @@ export class AuthController {
       return {
         status: true,
         message: 'Berhasil Mendapatkan Detail Akun',
-        data: {...user, type: 'user'},
+        data: {...user, type: user.role.toLocaleLowerCase()},
       };
     } catch (err) {
       if (err.status) throw new HttpException(err, err.status);
