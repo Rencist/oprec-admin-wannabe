@@ -40,7 +40,7 @@ export class ListLabController {
     
   @UseGuards(JwtGuard, RolesGuard)
   @Roles(Role.USER)
-  @Get(':lab_id')
+  @Get('admin/:lab_id')
   async getDetailLab(@Param('lab_id', new ParseIntPipe()) lab_id: number) {
     try {
       const lab = await this.listLabService.getDetailLab(lab_id);
