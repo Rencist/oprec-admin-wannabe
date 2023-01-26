@@ -36,7 +36,6 @@ export class PendaftarController {
         data: res,
       };
     } catch (err) {
-      console.log(err)
       if (err.status) throw new HttpException(err, err.status);
       else throw new InternalServerErrorException(err);
     }
