@@ -18,9 +18,6 @@ import { LoginDto } from '../../dto/auth/auth.dto';
 import { Token } from '../../decorators/token.decorator';
 import { UserDto } from 'src/dto/auth/user.dto';
 import { UserBody } from 'src/decorators/auth/user.decorator';
-import { RolesGuard } from 'src/guards/roles/roles.guard';
-import { Roles } from 'src/decorators/role.decorator';
-import { Role } from '@prisma/client';
 import { UserUpdateDto } from 'src/dto/auth/user_update.dto';
 import { PaginationDto } from 'src/dto/pagination/pagination.dto';
 import { FileSystemStoredFile, FormDataRequest } from 'nestjs-form-data';
@@ -74,8 +71,7 @@ export class AuthController {
 
   @Post('update/:user_id')
   @FileInjector(UserUpdateDto)
-  @UseGuards(JwtGuard, RolesGuard)
-  @Roles(Role.USER)
+  @UseGuards(JwtGuard)
   @UserBody()
   @ApiConsumes('multipart/form-data')
   @FormDataRequest({storage: FileSystemStoredFile})
@@ -112,8 +108,7 @@ export class AuthController {
     }
   }
   
-  @UseGuards(JwtGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(JwtGuard)
   @Get(':User_id')
   async getUser(@Param('user_id') user_id: string) {
     try {
@@ -129,8 +124,7 @@ export class AuthController {
     }
   }
   
-  @UseGuards(JwtGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(JwtGuard)
   @Get('')
   async getAllUser(@Query() paginationQuery: PaginationDto,) {
     try {

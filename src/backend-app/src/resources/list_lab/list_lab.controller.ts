@@ -9,9 +9,6 @@ import {
 } from '@nestjs/common';
 import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 import { ListLabService } from './list_lab.service';
-import { RolesGuard } from 'src/guards/roles/roles.guard';
-import { Roles } from 'src/decorators/role.decorator';
-import { Role } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('list_lab')
@@ -21,8 +18,7 @@ export class ListLabController {
     private readonly listLabService: ListLabService,
   ) {}
     
-  @UseGuards(JwtGuard, RolesGuard)
-  @Roles(Role.USER)
+  @UseGuards(JwtGuard)
   @Get('')
   async getAllLab() {
     try {
@@ -38,8 +34,7 @@ export class ListLabController {
     }
   }
     
-  @UseGuards(JwtGuard, RolesGuard)
-  @Roles(Role.USER)
+  @UseGuards(JwtGuard)
   @Get('admin/:lab_id')
   async getListAdminLab(@Param('lab_id', new ParseIntPipe()) lab_id: number) {
     try {
@@ -55,8 +50,7 @@ export class ListLabController {
     }
   }
     
-  @UseGuards(JwtGuard, RolesGuard)
-  @Roles(Role.USER)
+  @UseGuards(JwtGuard)
   @Get(':lab_id')
   async getDetailLab(@Param('lab_id', new ParseIntPipe()) lab_id: number) {
     try {
