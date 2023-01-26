@@ -4,6 +4,8 @@ import {
   HttpException,
   UseGuards,
   Get,
+  Param,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 import { ListLabService } from './list_lab.service';
@@ -28,6 +30,23 @@ export class ListLabController {
       return {
         status: true,
         message: 'Berhasil Mengambil Data Semua Lab',
+        data: lab,
+      };
+    } catch (err) {
+      if (err.status) throw new HttpException(err, err.status);
+      else throw new InternalServerErrorException(err);
+    }
+  }
+    
+  @UseGuards(JwtGuard, RolesGuard)
+  @Roles(Role.USER)
+  @Get(':lab_id')
+  async getDetailLab(@Param('lab_id', new ParseIntPipe()) lab_id: number) {
+    try {
+      const lab = await this.listLabService.getDetailLab(lab_id);
+      return {
+        status: true,
+        message: 'Berhasil Mengambil Data Detail Lab',
         data: lab,
       };
     } catch (err) {
