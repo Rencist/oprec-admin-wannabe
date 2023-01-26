@@ -41,6 +41,23 @@ export class ListLabController {
   @UseGuards(JwtGuard, RolesGuard)
   @Roles(Role.USER)
   @Get('admin/:lab_id')
+  async getListAdminLab(@Param('lab_id', new ParseIntPipe()) lab_id: number) {
+    try {
+      const lab = await this.listLabService.getListAdminLab(lab_id);
+      return {
+        status: true,
+        message: 'Berhasil Mengambil Data List Admin Lab',
+        data: lab,
+      };
+    } catch (err) {
+      if (err.status) throw new HttpException(err, err.status);
+      else throw new InternalServerErrorException(err);
+    }
+  }
+    
+  @UseGuards(JwtGuard, RolesGuard)
+  @Roles(Role.USER)
+  @Get(':lab_id')
   async getDetailLab(@Param('lab_id', new ParseIntPipe()) lab_id: number) {
     try {
       const lab = await this.listLabService.getDetailLab(lab_id);
