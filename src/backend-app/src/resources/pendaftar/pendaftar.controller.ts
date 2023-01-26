@@ -5,6 +5,7 @@ import {
   InternalServerErrorException,
   HttpException,
   UseGuards,
+  Get,
 } from '@nestjs/common';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { PendaftarService } from './pendaftar.service';
@@ -35,6 +36,22 @@ export class PendaftarController {
         status: true,
         message: 'Berhasil Register',
         data: res,
+      };
+    } catch (err) {
+      if (err.status) throw new HttpException(err, err.status);
+      else throw new InternalServerErrorException(err);
+    }
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('me')
+  async getMe(@Token('uid') uid: string) {
+    try {
+      const pendaftar = await this.pendaftarService.getPendaftar(uid);
+      return {
+        status: true,
+        message: 'Berhasil Mendapatkan Detail Pendaftar',
+        data: {...pendaftar},
       };
     } catch (err) {
       if (err.status) throw new HttpException(err, err.status);

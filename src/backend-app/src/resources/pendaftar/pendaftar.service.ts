@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Prisma } from '@prisma/client';
@@ -53,5 +54,13 @@ export class PendaftarService {
       resolve(pendaftar);
     });
     return success;
+  }
+
+  async getPendaftar(id: string) {
+    const pendaftar = await this.prisma.pendaftar_lab.findFirst({
+      where: { user_id: id },
+    });
+    if (!pendaftar) throw new NotFoundException('Pendaftar not found');
+    return pendaftar;
   }
 }
