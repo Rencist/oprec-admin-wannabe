@@ -127,9 +127,14 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: { id: id },
     });
-
     if (!user) throw new NotFoundException('User not found');
-    return user;
+    const id_pendaftar = await this.prisma.pendaftar_lab.findFirst({
+      where: {
+        user_id: id
+      },
+    })
+    if(id_pendaftar) return {...user, is_pendaftar: true};
+    else return {...user, is_pendaftar: false};
   }
 
   async getAllUser(paginationQuery: PaginationDto) {
