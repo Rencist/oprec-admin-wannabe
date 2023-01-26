@@ -24,6 +24,16 @@ export class PendaftarService {
     if (checkPendaftar) {
       throw new BadRequestException('NRP sudah terdaftar');
     }
+
+    const checkUser = await this.prisma.pendaftar_lab.findFirst({
+      where: {
+        user_id: uid,
+      },
+    });
+
+    if (checkUser) {
+      throw new BadRequestException('User sudah terdaftar');
+    }
     
     const newdata: Prisma.pendaftar_labUncheckedCreateInput = {
       name: data.name,
