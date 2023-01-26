@@ -13,6 +13,7 @@ import { PendaftarDto } from 'src/dto/pendaftar/pendaftar.dto';
 import { PendaftarBody } from 'src/decorators/pendaftar/pendaftar.decorator';
 import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 import { FileSystemStoredFile, FormDataRequest } from 'nestjs-form-data';
+import { Token } from 'src/decorators/token.decorator';
 
 @ApiTags('pendaftar_lab')
 @Controller('pendaftar_lab')
@@ -27,9 +28,9 @@ export class PendaftarController {
   @PendaftarBody()
   @ApiConsumes('multipart/form-data')
   @FormDataRequest({storage: FileSystemStoredFile})
-  async create(@Body() data: PendaftarDto) {
+  async create(@Token('uid') uid: string, @Body() data: PendaftarDto) {
     try {
-      const res = await this.pendaftarService.create(data);
+      const res = await this.pendaftarService.create(data, uid);
       return {
         status: true,
         message: 'Berhasil Register',

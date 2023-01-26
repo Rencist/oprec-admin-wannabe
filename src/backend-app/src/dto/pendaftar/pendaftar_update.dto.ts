@@ -6,6 +6,13 @@ export class PendaftarDto {
   @IsOptional()
   @ApiProperty()
   name: string;
+  
+  @ApiProperty({
+    readOnly: true,
+    type: String,
+    description: 'Akan dibuat oleh server',
+  })
+  user_id: string;
 
   @Transform(({ value }) => parseInt(value))
   @ApiProperty()

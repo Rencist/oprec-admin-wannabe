@@ -6,13 +6,16 @@ export const PendaftarBody =
     ApiBody({
       schema: {
         type: 'object',
-        required: ['name', 'list_lab_id', 'nrp', 'no_telp', 'alasan', 'motivasi', 'link_kreasi'],
+        required: ['name', 'list_lab_id', 'user_id', 'nrp', 'no_telp', 'alasan', 'motivasi', 'link_kreasi'],
         properties: {
           name: {
             type: 'string',
           },
           list_lab_id: {
             type: 'number',
+          },
+          user_id: {
+            type: 'string',
           },
           nrp: {
             type: 'string',

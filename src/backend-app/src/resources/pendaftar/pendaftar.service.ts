@@ -14,7 +14,7 @@ export class PendaftarService {
     private pagination: PaginationService
     ) {}
 
-  async create(data: PendaftarDto) {
+  async create(data: PendaftarDto, uid: string) {
     const checkPendaftar = await this.prisma.pendaftar_lab.findUnique({
       where: {
         nrp: data.nrp,
@@ -28,6 +28,7 @@ export class PendaftarService {
     const newdata: Prisma.pendaftar_labUncheckedCreateInput = {
       name: data.name,
       list_lab_id: data.list_lab_id,
+      user_id: uid,
       nrp: data.nrp,
       no_telp: data.no_telp,
       alasan: data.alasan,

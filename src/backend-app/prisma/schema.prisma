@@ -19,15 +19,16 @@ enum Role {
 }
 
 model User {
-  id           String         @id @default(uuid())
-  fullname     String
-  email        String         @unique
-  password     String
-  role         Role           @default(USER)
-  shortens     Shorten[]
-  loginAttempt Login_Attempt?
-  createdAt    DateTime?      @default(now())
-  updatedAt    DateTime       @default(now())
+  id            String          @id @default(uuid())
+  fullname      String
+  email         String          @unique
+  password      String
+  role          Role            @default(USER)
+  shortens      Shorten[]
+  loginAttempt  Login_Attempt?
+  createdAt     DateTime?       @default(now())
+  updatedAt     DateTime        @default(now())
+  pendaftar_lab pendaftar_lab[]
 }
 
 model list_lab {
@@ -61,12 +62,14 @@ model pendaftar_lab {
   id          String    @id @default(uuid())
   name        String
   list_lab_id Int
+  user_id     String
   nrp         String    @unique
   no_telp     String
   alasan      String
   motivasi    String
   link_kreasi String
   listLabId   list_lab? @relation(fields: [list_lab_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userId      User?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   createdAt   DateTime? @default(now())
   updatedAt   DateTime  @default(now())
 }
