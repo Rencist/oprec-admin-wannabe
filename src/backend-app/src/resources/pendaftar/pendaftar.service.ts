@@ -61,6 +61,12 @@ export class PendaftarService {
       where: { user_id: id },
     });
     if (!pendaftar) throw new NotFoundException('Pendaftar not found');
-    return pendaftar;
+    const labPendaftar = await this.prisma.list_lab.findUnique({
+      where: {
+        id: pendaftar.list_lab_id
+      }
+    });
+    const labPendaftar2 = labPendaftar.name;
+    return {...pendaftar, labPendaftar: labPendaftar2};
   }
 }

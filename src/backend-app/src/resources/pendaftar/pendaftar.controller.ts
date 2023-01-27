@@ -51,7 +51,7 @@ export class PendaftarController {
       return {
         status: true,
         message: 'Berhasil Mendapatkan Detail Pendaftar',
-        data: {...pendaftar},
+        data: pendaftar,
       };
     } catch (err) {
       if (err.status) throw new HttpException(err, err.status);
