@@ -17,7 +17,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 18235
           script: |
-            cd /var/www/oprec-backend/src/backend-app
+            cd /var/www/oprec-admin-wannabe-backend/src/backend-app
             git pull origin develop
             yarn install
             yarn build

@@ -1,19 +1,19 @@
 {
-  "name": "oprec-backend",
+  "name": "oprec-admin-wannabe-backend",
   "version": "1.0.0",
-  "description": "Backend repository for oprec",
+  "description": "Backend repository for oprec admin",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oprec/oprec-backend.git"
+    "url": "git+https://github.com/Rencist/oprec-admin-wannabe-backend.git"
   },
   "author": "oprec",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/oprec/oprec-backend/issues"
+    "url": "https://github.com/Rencist/oprec-admin-wannabe-backend/issues"
   },
-  "homepage": "https://github.com/oprec/oprec-backend#readme"
+  "homepage": "https://github.com/Rencist/oprec-admin-wannabe-backend#readme"
 }
